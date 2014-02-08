@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Windows.Media.Animation;
 
 namespace Trackboard
 {
@@ -62,5 +63,18 @@ namespace Trackboard
         {
             App.Current.Shutdown();
         }
+
+        void Item_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ThicknessAnimation ta = new ThicknessAnimation(new Thickness(4, 4, 4, 4), new Duration(new TimeSpan(0, 0, 0, 0, 300)));
+            detailpanel.BeginAnimation(MarginProperty, ta);
+            detailpanel.DataContext = (sender as ListBoxItem).Content;
+        }
+
+        void Item_Selected(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
     }
 }

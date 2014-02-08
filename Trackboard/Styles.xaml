@@ -278,24 +278,16 @@
                             </Path.Data>
                         </Path>
                         <Image Source="{Binding Path=SID,Converter={StaticResource imgcv}}" Stretch="Fill"/>
-                        <TextBlock Name="text1" VerticalAlignment="Bottom" Text="{Binding SName}" HorizontalAlignment="Center" 
-                                   Margin="0,0,0,20" FontSize="18" FontFamily="Black" Foreground="White">
-                            <TextBlock.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="6"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        <TextBlock Name="text2" VerticalAlignment="Bottom" Text="{Binding SID}" HorizontalAlignment="Center" 
-                                   Margin="0,0,0,5" FontSize="12" FontFamily="Black" Foreground="White">
-                            <TextBlock.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="6"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
+                        <TextBlock Name="text1" VerticalAlignment="Bottom" Text="{Binding SName}" HorizontalAlignment="Stretch" 
+                                   Margin="0,0,0,20" FontSize="18" FontFamily="Black" TextAlignment="Center" Foreground="White" Background="#804A4A4A"/>
+                        <TextBlock Name="text2" VerticalAlignment="Bottom" Text="{Binding SID}" HorizontalAlignment="Stretch" 
+                                   Margin="0,0,0,4" FontSize="12" FontFamily="Black" TextAlignment="Center" Foreground="White" Background="#804A4A4A"/>
                         <Border Name="bd" BorderBrush="{StaticResource Color_b}" BorderThickness="1"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="text1" Property="FontSize" Value="20"/>
-                            <Setter TargetName="text2" Property="FontSize" Value="14"/>
+                            <Setter TargetName="text1" Property="Background" Value="#80006E9D"/>
+                            <Setter TargetName="text2" Property="Background" Value="#80006E9D"/>
                             <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource Color_c}"/>
                             <Setter TargetName="pt1" Property="Fill" Value="{StaticResource Color_c}"/>
                             <Setter TargetName="pt2" Property="Fill" Value="{StaticResource Color_c}"/>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 using System.Globalization;
+using System.Configuration;
 
 namespace Trackboard
 {
@@ -15,7 +16,21 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return String.Format(@"{0}\{1}.jpg", AppDomain.CurrentDomain.BaseDirectory, value);
+            return String.Format(@"{0}\{1}.jpg", ConfigurationManager.AppSettings["ImagePath"], value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class DatetimeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((DateTime)value).ToString("yyyy-MM-dd");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
