@@ -1,0 +1,58 @@
+﻿<Window x:Class="Trackboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="582" Width="1024"
+        WindowStyle="None" ResizeMode="NoResize"
+        IsTabStop="False" AllowsTransparency="True" 
+        Background="Transparent" BorderBrush="#FF3F3F3F"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown_1">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border
+        x:Name="m_edgeBorder"
+        x:FieldModifier="private"
+        Margin="10"
+        IsHitTestVisible="False"
+        BorderBrush="#FFACACAC"
+        BorderThickness="1"
+        IsEnabled="False"
+        Background="White">
+            <Border.Effect>
+                <DropShadowEffect
+                Opacity="0.56"
+                BlurRadius="16"
+                ShadowDepth="0" />
+            </Border.Effect>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Path Name="pathheader" Grid.Row="0" Fill="{StaticResource Color_b}" Stretch="Fill" Data="M 0,0 L 0,45 10,50 10,45 1014,45 1014,50 1024,45 1024,0 Z"/>
+            <Canvas Grid.Row="0">
+                <Button Canvas.Right="80" Canvas.Top="10" Width="25" Height="25" Style="{StaticResource ButtonMin}" Foreground="White" Click="Button_Click_1"/>
+                <Button Canvas.Right="50" Canvas.Top="10" Width="25" Height="25" Style="{StaticResource ButtonMax}" Foreground="White" Click="Button_Click_2"/>
+                <Button Canvas.Right="20" Canvas.Top="10" Width="25" Height="25" Style="{StaticResource ButtonClose}" Foreground="White" Click="Button_Click_3"/>
+            </Canvas>
+            <TabControl Name="tabcontrol" Margin="10,5,10,10" Style="{StaticResource TabControlStyle}" Grid.Row="1">
+                <TabItem Header="ABSOLUTE" Margin="0" Height="50" Style="{StaticResource listTabItemStyle}">
+                    <ScrollViewer Style="{StaticResource for_scrollviewer}" HorizontalScrollBarVisibility="Disabled">
+                        <ListBox Name="liststu" Style="{StaticResource ImageListBox}"/>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem  Header="ABSOLUTE" Margin="0" Height="50" Style="{StaticResource listTabItemStyle}"/>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>

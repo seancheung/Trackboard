@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Class] (
+    [CID]   VARCHAR (10)  NOT NULL,
+    [CName] NVARCHAR (10) NOT NULL,
+    [TID]   NCHAR (10)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([CID] ASC)
+);
+
