@@ -28,7 +28,8 @@ namespace Trackboard
             //Login dlg = new Login();
             //dlg.ShowDialog();
 
-            liststu.ItemsSource = new ObservableCollection<Student>(new Meth().Students);
+            tabcontrol.DataContext = new ObservableCollection<Student>(new Meth().Students);
+
         }
 
         private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
@@ -67,8 +68,8 @@ namespace Trackboard
         void Item_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ThicknessAnimation ta = new ThicknessAnimation(new Thickness(4, 4, 4, 4), new Duration(new TimeSpan(0, 0, 0, 0, 300)));
-            detailpanel.BeginAnimation(MarginProperty, ta);
-            detailpanel.DataContext = (sender as ListBoxItem).Content;
+            //detailpanel.BeginAnimation(MarginProperty, ta);
+            //detailpanel.DataContext = (sender as ListBoxItem).Content;
         }
 
         void Item_Selected(object sender, RoutedEventArgs e)
