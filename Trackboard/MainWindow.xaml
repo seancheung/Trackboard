@@ -17,52 +17,19 @@
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="itempanel" TargetType="{x:Type Control}">
-                <Setter Property="Tag" Value="0"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
-                            <ControlTemplate.Resources>
-                                <Storyboard x:Key="stb" Storyboard.TargetProperty="Tag" Duration="0:0:0:0.3">
-                                    <DoubleAnimation To="0.8"/>
-                                </Storyboard>
-                            </ControlTemplate.Resources>
                             <Grid>
                                 <ScrollViewer Style="{StaticResource for_scrollviewer}" HorizontalScrollBarVisibility="Disabled">
                                     <ListBox Style="{StaticResource ImageListBox}" ItemsSource="{Binding}">
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ImageListBoxItem}">
-                                                <Style.Triggers>
-                                                    <EventTrigger RoutedEvent="MouseDoubleClick">
-                                                        <BeginStoryboard Storyboard="{StaticResource stb}"/>
-                                                    </EventTrigger>
-                                                </Style.Triggers>
                                                 <EventSetter Event="MouseDoubleClick" Handler="Item_MouseDoubleClick"/>
                                             </Style>
                                         </ListBox.ItemContainerStyle>
                                     </ListBox>
                                 </ScrollViewer>
-                                <Border Name="detailpanel" Background="{StaticResource Color_c}"
-                                CornerRadius="4" Margin="4" Opacity="{TemplateBinding Tag}" Visibility="Visible">
-                                    <Grid Margin="4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="184"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Canvas Grid.Column="1" Background="{StaticResource Color_b}">
-                                            <Canvas.Resources>
-                                                <cv:IMGPathConverter x:Key="imgcv"/>
-                                                <cv:DatetimeConverter x:Key="datecv"/>
-                                            </Canvas.Resources>
-                                            <Image Height="240" Width="180" Margin="2" Canvas.Top="4" Source="{Binding Path=SID,Converter={StaticResource imgcv}}"/>
-                                            <StackPanel Canvas.Top="250" Width="180" Margin="2">
-                                                <TextBlock Height="50" Margin="2" Text="{Binding SName}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                                <TextBlock Height="50" Margin="2" Text="{Binding SID}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                                <TextBlock Height="50" Margin="2" Text="{Binding Path=SBirth,Converter={StaticResource datecv}}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                                <TextBlock Height="50" Margin="2" Text="{Binding SPhone}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                            </StackPanel>
-                                        </Canvas>
-                                    </Grid>
-                                </Border>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -100,45 +67,16 @@
             </Canvas>
             <TabControl Name="tabcontrol" Margin="10,5,10,10" Style="{StaticResource TabControlStyle}" Grid.Row="1">
                 <TabItem Header="ABSOLUTE" Margin="0" Style="{StaticResource listTabItemStyle}">
-                    <!--<Grid>
-                    <ScrollViewer Style="{StaticResource for_scrollviewer}" HorizontalScrollBarVisibility="Disabled">
-                            <ListBox Name="liststu" Style="{StaticResource ImageListBox}">
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ImageListBoxItem}">
-                                        <EventSetter Event="MouseDoubleClick" Handler="Item_MouseDoubleClick"/>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
-                        </ScrollViewer>
-                        <Border Name="detailpanel" Background="{StaticResource Color_c}" Opacity="0.7"
-                                CornerRadius="4" Margin="4,400" Visibility="Visible">
-                            <Grid Margin="4">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="184"/>
-                                </Grid.ColumnDefinitions>
-                                <Canvas Grid.Column="1" Background="{StaticResource Color_b}">
-                                    <Canvas.Resources>
-                                        <cv:IMGPathConverter x:Key="imgcv"/>
-                                        <cv:DatetimeConverter x:Key="datecv"/>
-                                    </Canvas.Resources>
-                                    <Image Height="240" Width="180" Margin="2" Canvas.Top="4" Source="{Binding Path=SID,Converter={StaticResource imgcv}}"/>
-                                    <StackPanel Canvas.Top="250" Width="180" Margin="2">
-                                        <TextBlock Height="50" Margin="2" Text="{Binding SName}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                        <TextBlock Height="50" Margin="2" Text="{Binding SID}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                        <TextBlock Height="50" Margin="2" Text="{Binding Path=SBirth,Converter={StaticResource datecv}}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                        <TextBlock Height="50" Margin="2" Text="{Binding SPhone}" Foreground="White" FontSize="28" TextAlignment="Center"/>
-                                    </StackPanel>
-                                </Canvas>
-                            </Grid>
-                        </Border>
-                    </Grid>-->
                     <Control Style="{StaticResource itempanel}"/>
                 </TabItem>
-                <TabItem  Header="ABSOLUTE" Margin="0" Style="{StaticResource listTabItemStyle}">
-                    <Control Style="{StaticResource itempanel}"/>
+                <TabItem  Header="ABSOLUTE" Style="{StaticResource listTabItemStyle}">
                 </TabItem>
             </TabControl>
+            <Grid Grid.Row="1">
+                <DataGrid Name="data" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="True" ItemsSource="{Binding}" Visibility="Hidden" Margin="10,1">
+                    
+                </DataGrid>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

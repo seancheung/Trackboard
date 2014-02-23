@@ -67,9 +67,7 @@ namespace Trackboard
 
         void Item_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ThicknessAnimation ta = new ThicknessAnimation(new Thickness(4, 4, 4, 4), new Duration(new TimeSpan(0, 0, 0, 0, 300)));
-            //detailpanel.BeginAnimation(MarginProperty, ta);
-            //detailpanel.DataContext = (sender as ListBoxItem).Content;
+            data.Visibility = System.Windows.Visibility.Visible;
         }
 
         void Item_Selected(object sender, RoutedEventArgs e)
