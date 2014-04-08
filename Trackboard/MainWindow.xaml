@@ -3,38 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cv="clr-namespace:Trackboard"
         Title="MainWindow" Height="582" Width="1024"
-        WindowStyle="None" ResizeMode="NoResize"
+        MinHeight="582" MinWidth="1024"
+        WindowStyle="None" ResizeMode="CanResizeWithGrip"
         IsTabStop="False" AllowsTransparency="True" 
         Background="Transparent" BorderBrush="#FF3F3F3F"
         SnapsToDevicePixels="True"
         TextOptions.TextFormattingMode="Display"
         TextOptions.TextRenderingMode="ClearType"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown_1">
+        MouseLeftButtonDown="Window_MouseDown_1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="itempanel" TargetType="{x:Type Control}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate>
-                            <Grid>
-                                <ScrollViewer Style="{StaticResource for_scrollviewer}" HorizontalScrollBarVisibility="Disabled">
-                                    <ListBox Style="{StaticResource ImageListBox}" ItemsSource="{Binding}">
-                                        <ListBox.ItemContainerStyle>
-                                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ImageListBoxItem}">
-                                                <EventSetter Event="MouseDoubleClick" Handler="Item_MouseDoubleClick"/>
-                                            </Style>
-                                        </ListBox.ItemContainerStyle>
-                                    </ListBox>
-                                </ScrollViewer>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+            <cv:IMGPathConverter x:Key="imgcv"/>
+            <cv:DatetimeConverter x:Key="datcv"/>
+            <cv:GenderConverter x:Key="gencv"/>
+            <cv:GradeConverter x:Key="gracv"/>
+            <cv:ClassConverter x:Key="clscv"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -65,17 +52,82 @@
                 <Button Canvas.Right="50" Canvas.Top="10" Width="25" Height="25" Style="{StaticResource ButtonMax}" Foreground="White" Click="Button_Click_2"/>
                 <Button Canvas.Right="20" Canvas.Top="10" Width="25" Height="25" Style="{StaticResource ButtonClose}" Foreground="White" Click="Button_Click_3"/>
             </Canvas>
-            <TabControl Name="tabcontrol" Margin="10,5,10,10" Style="{StaticResource TabControlStyle}" Grid.Row="1">
-                <TabItem Header="ABSOLUTE" Margin="0" Style="{StaticResource listTabItemStyle}">
-                    <Control Style="{StaticResource itempanel}"/>
-                </TabItem>
-                <TabItem  Header="ABSOLUTE" Style="{StaticResource listTabItemStyle}">
-                </TabItem>
-            </TabControl>
-            <Grid Grid.Row="1">
-                <DataGrid Name="data" IsSynchronizedWithCurrentItem="True" AutoGenerateColumns="True" ItemsSource="{Binding}" Visibility="Hidden" Margin="10,1">
-                    
-                </DataGrid>
+            <Grid Grid.Row="1"  Margin="10,5,10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox>
+                        <StackPanel>
+                            <ComboBox IsReadOnly="True" Margin="2"/>
+                            <ComboBox IsReadOnly="True" Margin="2"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <ListBox Name="stuList" Grid.Row="1" Margin="4,2" IsSynchronizedWithCurrentItem="True">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding SID}" Margin="4,0" Foreground="{StaticResource Color_b}"/>
+                                    <TextBlock Text="{Binding SName}" Margin="4,0" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Column="1" DataContext="{Binding ElementName=stuList, Path=SelectedItem}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="165"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Margin="1,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderBrush="{StaticResource Color_b}" BorderThickness="1">
+                            <Grid>
+                                <Path Name="pt1" Fill="{StaticResource Color_b}" Stretch="None">
+                                    <Path.Data>
+                                        <EllipseGeometry Center="60,160" RadiusX="54" RadiusY="80"/>
+                                    </Path.Data>
+                                </Path>
+                                <Path Name="pt2" Fill="{StaticResource Color_b}" Stretch="None">
+                                    <Path.Data>
+                                        <EllipseGeometry Center="60,60" RadiusX="35" RadiusY="35"/>
+                                    </Path.Data>
+                                </Path>
+                                <Image Source="{Binding Path=SID,Converter={StaticResource imgcv}, IsAsync=True}" Stretch="Fill"/>
+                            </Grid>
+                        </Border>
+                        <Grid Grid.Column="1" Margin="8,0,4,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding SName}" TextAlignment="Justify" Foreground="{StaticResource Color_b}"/>
+                            <TextBlock Grid.Row="1" Text="{Binding SGender, Converter={StaticResource gencv}}" TextAlignment="Left" Foreground="{StaticResource Color_b}"/>
+                            <TextBlock Grid.Row="2" Text="{Binding SID}" TextAlignment="Justify" Foreground="{StaticResource Color_b}"/>
+                            <TextBlock Grid.Row="3" Text="{Binding CID, Converter={StaticResource clscv},IsAsync=True}" TextAlignment="Justify" Foreground="{StaticResource Color_b}"/>
+                            <TextBlock Grid.Row="4" Text="{Binding SBirth, Converter={StaticResource datcv}}" TextAlignment="Justify" Foreground="{StaticResource Color_b}"/>
+                            <TextBlock Grid.Row="5" Text="{Binding SPhone}" TextAlignment="Justify" Foreground="{StaticResource Color_b}"/>
+                            <Canvas Grid.Column="1" Grid.RowSpan="6" Background="{StaticResource Color_c}"/>
+                        </Grid>
+                    </Grid>
+                    <DataGrid Name="stuDetails" Grid.Row="1" Margin="1,2,4,2" ItemsSource="{Binding Path=SID,Converter={StaticResource gracv}, IsAsync=True}"/>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

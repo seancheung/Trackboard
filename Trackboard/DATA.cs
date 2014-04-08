@@ -9,15 +9,14 @@ namespace Trackboard
 {
     class DATA
     {
-        //private static string ConnStr = @"Data Source=(localdb)\v11.0;Initial Catalog=Trackboard;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
-        //private static string ConnStr = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=E:\Users\Sean\Documents\GitHub\Trackboard\Trackboard\DATABASE\Trackboard.mdf;Integrated Security=True";
+
         private static string ConnStr = ConfigurationManager.ConnectionStrings["Trackboard.Properties.Settings.TrackboardConnectionString"].ConnectionString;
 
         /// <summary>
         /// 返回用户列表
         /// </summary>
         /// <returns></returns>
-        public List<User> GetUsers()
+        public static List<User> GetUsers()
         {
             using (var datacontex = new DataContext(ConnStr))
             {
@@ -30,11 +29,63 @@ namespace Trackboard
         /// 返回学生表
         /// </summary>
         /// <returns></returns>
-        public List<Student> GetStudents()
+        public static List<Student> GetStudents()
         {
             using (var datacontex = new DataContext(ConnStr))
             {
                 return datacontex.GetTable<Student>().ToList<Student>();
+            }
+
+        }
+
+        /// <summary>
+        /// 返回成绩表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Grade> GetGrades()
+        {
+            using (var datacontex = new DataContext(ConnStr))
+            {
+                return datacontex.GetTable<Grade>().ToList<Grade>();
+            }
+
+        }
+
+        /// <summary>
+        /// 返回老师表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Teacher> GetTeachers()
+        {
+            using (var datacontex = new DataContext(ConnStr))
+            {
+                return datacontex.GetTable<Teacher>().ToList<Teacher>();
+            }
+
+        }
+
+        /// <summary>
+        /// 返回班级表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Class> GetClasses()
+        {
+            using (var datacontex = new DataContext(ConnStr))
+            {
+                return datacontex.GetTable<Class>().ToList<Class>();
+            }
+
+        }
+
+        /// <summary>
+        /// 返回课程表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Course> GetCourses()
+        {
+            using (var datacontex = new DataContext(ConnStr))
+            {
+                return datacontex.GetTable<Course>().ToList<Course>();
             }
 
         }

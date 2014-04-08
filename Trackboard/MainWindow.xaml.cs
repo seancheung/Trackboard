@@ -28,7 +28,7 @@ namespace Trackboard
             //Login dlg = new Login();
             //dlg.ShowDialog();
 
-            tabcontrol.DataContext = new ObservableCollection<Student>(new Meth().Students);
+            stuList.ItemsSource = new ObservableCollection<Student>(new Meth().Students);
 
         }
 
@@ -47,14 +47,12 @@ namespace Trackboard
             if (this.WindowState == System.Windows.WindowState.Maximized)
             {
                 this.WindowState = System.Windows.WindowState.Normal;
-                tabcontrol.Margin = new Thickness(10, 5, 10, 10);
                 pathheader.Data = Geometry.Parse("M 0,0 L 0,45 10,50 10,45 1014,45 1014,50 1024,45 1024,0 Z");
                 m_edgeBorder.Margin = new Thickness(10);
             }
             else
             {
                 this.WindowState = System.Windows.WindowState.Maximized;
-                tabcontrol.Margin = new Thickness(0, 5, 0, 0);
                 pathheader.Data = Geometry.Parse("M 0,0 L 0,50 1024,50 1024,0 Z");
                 m_edgeBorder.Margin = new Thickness(0);
             }
@@ -65,15 +63,6 @@ namespace Trackboard
             App.Current.Shutdown();
         }
 
-        void Item_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            data.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        void Item_Selected(object sender, RoutedEventArgs e)
-        {
-            
-        }
 
     }
 }
