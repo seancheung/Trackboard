@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DataTemplate x:Key="StudentListTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding SID}" Margin="4,0" Foreground="{StaticResource Color_b}"/>
+            <TextBlock Text="{Binding SName}" Margin="4,0" FontWeight="Bold"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ClassListTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding CName}" Margin="4,0" Foreground="{StaticResource Color_b}"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CourseListTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding CoName}" Margin="4,0" Foreground="{StaticResource Color_b}"/>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

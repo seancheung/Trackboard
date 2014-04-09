@@ -28,8 +28,6 @@ namespace Trackboard
             //Login dlg = new Login();
             //dlg.ShowDialog();
 
-            stuList.ItemsSource = new ObservableCollection<Student>(new Meth().Students);
-
         }
 
         private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
@@ -61,6 +59,42 @@ namespace Trackboard
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             App.Current.Shutdown();
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems[0].ToString() == "班级视图")
+            {
+                comboSub.ItemsSource = null;
+                comboSub.Visibility = Visibility.Collapsed;
+                mainList.SetResourceReference(ListBox.ItemTemplateProperty, "ClassListTemplate");
+                mainList.ItemsSource = new Meth().Classes;
+                detailpanel.SetResourceReference(Control.TemplateProperty, "ClassPanelTemplate");
+            }
+            else if (e.AddedItems[0].ToString() == "课程视图")
+            {
+                comboSub.ItemsSource = null;
+                comboSub.Visibility = Visibility.Collapsed;
+                mainList.SetResourceReference(ListBox.ItemTemplateProperty, "CourseListTemplate");
+                mainList.ItemsSource = new Meth().Courses;
+                detailpanel.SetResourceReference(Control.TemplateProperty, "CoursePanelTemplate");
+
+            }
+            else
+            {
+                comboSub.DisplayMemberPath = "CName";
+                comboSub.ItemsSource = new Meth().Classes;
+                comboSub.Visibility = Visibility.Visible;
+                mainList.SetResourceReference(ListBox.ItemTemplateProperty, "StudentListTemplate");
+                mainList.ItemsSource = new Meth().Students;
+                detailpanel.SetResourceReference(Control.TemplateProperty, "StudentPanelTemplate");
+            }
+        }
+
+        private void comboSub_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboSub.ItemsSource != null)
+                mainList.ItemsSource = new Meth().Students.Where(s => s.CID == (e.AddedItems[0] as Class).CID);
         }
 
 

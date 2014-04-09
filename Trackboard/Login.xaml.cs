@@ -50,5 +50,13 @@ namespace Trackboard
                 this.Close();
             }
         }
+
+        private void Window_PreviewKeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Button_Click_3(null, null);
+            }
+        }
     }
 }

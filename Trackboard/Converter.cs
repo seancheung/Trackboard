@@ -58,7 +58,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Meth().GetGrades(value);
+            return new Meth().GetGradesByStudent(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,7 +72,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Meth().GetClass(value);
+            return new Meth().GetClassName(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -80,4 +80,28 @@ namespace Trackboard
             return null;
         }
     }
+
+    [ValueConversion(typeof(object), typeof(string))]
+    public class CourseGradeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var gs = new Meth().GetGradesByCourse(value.ToString());
+
+
+            return new List<KeyValuePair<string, int>>()
+            {
+                new KeyValuePair<string,int>("优秀",gs.Count(g => g.GMark >=80)),
+                new KeyValuePair<string,int>("良好",gs.Count(g => g.GMark < 80 && g.GMark >= 70)),
+                new KeyValuePair<string,int>("及格",gs.Count(g => g.GMark < 70 && g.GMark >= 60)),
+                new KeyValuePair<string,int>("不及格",gs.Count(g => g.GMark < 60)),
+            };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
 }

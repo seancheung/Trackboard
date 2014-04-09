@@ -9,12 +9,13 @@
         TextOptions.TextFormattingMode="Display"
         TextOptions.TextRenderingMode="ClearType"
         WindowStartupLocation="CenterOwner"
-        MouseDown="Window_MouseDown_1"
+        MouseLeftButtonDown="Window_MouseDown_1"
+        PreviewKeyDown="Window_PreviewKeyDown_1"
         >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
