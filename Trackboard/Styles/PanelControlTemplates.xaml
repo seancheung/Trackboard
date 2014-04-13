@@ -73,33 +73,45 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Canvas Background="{StaticResource Color_b1}"/>
-            <chartingToolkit:Chart Grid.Row="1" Background="Transparent">
+            <chartingToolkit:Chart Grid.Row="1" Background="Transparent" BorderThickness="0">
+                <chartingToolkit:Chart.PlotAreaStyle>
+                    <Style TargetType="Grid">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </chartingToolkit:Chart.PlotAreaStyle>
+                <chartingToolkit:Chart.LegendStyle>
+                    <Style TargetType="daviToolkit:Legend">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </chartingToolkit:Chart.LegendStyle>
+                <chartingToolkit:Chart.Palette>
+                    <daviToolkit:ResourceDictionaryCollection>
+                        <ResourceDictionary>
+                            <Style x:Key="DataPointStyle" TargetType="Control" >
+                                <Setter Property="Background" Value="#FF3B3B"/>
+                            </Style>
+                        </ResourceDictionary>
+                        <ResourceDictionary>
+                            <Style x:Key="DataPointStyle" TargetType="Control" >
+                                <Setter Property="Background" Value="#99981C"/>
+                            </Style>
+                        </ResourceDictionary>
+                        <ResourceDictionary>
+                            <Style x:Key="DataPointStyle" TargetType="Control" >
+                                <Setter Property="Background" Value="#59D059"/>
+                            </Style>
+                        </ResourceDictionary>
+                        <ResourceDictionary>
+                            <Style x:Key="DataPointStyle" TargetType="Control" >
+                                <Setter Property="Background" Value="#4545FF"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </daviToolkit:ResourceDictionaryCollection>
+                </chartingToolkit:Chart.Palette>
                 <chartingToolkit:PieSeries DependentValuePath="Value" IndependentValuePath="Key" Background="Transparent"
                                            ItemsSource="{Binding ElementName=mainList, Path=SelectedItem.CoID, Converter={StaticResource cogcv}, IsAsync=True}">
-                    <chartingToolkit:PieSeries.Palette>
-                        <daviToolkit:ResourceDictionaryCollection>
-                            <ResourceDictionary>
-                                <Style x:Key="DataPointStyle" TargetType="Control" >
-                                    <Setter Property="Background" Value="#FF3B3B"/>
-                                </Style>
-                            </ResourceDictionary>
-                            <ResourceDictionary>
-                                <Style x:Key="DataPointStyle" TargetType="Control" >
-                                    <Setter Property="Background" Value="#99981C"/>
-                                </Style>
-                            </ResourceDictionary>
-                            <ResourceDictionary>
-                                <Style x:Key="DataPointStyle" TargetType="Control" >
-                                    <Setter Property="Background" Value="#59D059"/>
-                                </Style>
-                            </ResourceDictionary>
-                            <ResourceDictionary>
-                                <Style x:Key="DataPointStyle" TargetType="Control" >
-                                    <Setter Property="Background" Value="#4545FF"/>
-                                </Style>
-                            </ResourceDictionary>
-                        </daviToolkit:ResourceDictionaryCollection>
-                    </chartingToolkit:PieSeries.Palette>
+  
                 </chartingToolkit:PieSeries>
             </chartingToolkit:Chart>
         </Grid>

@@ -12,4 +12,18 @@
     <SolidColorBrush x:Key="Color_d2" Color="#FFF4D5"/>
     <SolidColorBrush x:Key="Color_d3" Color="#BABABA"/>
 
+    <!--chart datapoint color-->
+    <SolidColorBrush x:Key="Color_chart1" Color="#FF3B3B"/>
+    <SolidColorBrush x:Key="Color_chart2" Color="#99981C"/>
+    <SolidColorBrush x:Key="Color_chart3" Color="#59D059"/>
+    <SolidColorBrush x:Key="Color_chart4" Color="#4545FF"/>
+    <SolidColorBrush x:Key="Color_chart5" Color="#FF8A3C"/>
+    <SolidColorBrush x:Key="Color_chart6" Color="#FF31B9"/>
+    <SolidColorBrush x:Key="Color_chart7" Color="#0DA8E8"/>
+    <SolidColorBrush x:Key="Color_chart8" Color="#232323"/>
+    <SolidColorBrush x:Key="Color_chart9" Color="#C5BB50"/>
+    <SolidColorBrush x:Key="Color_chart10" Color="#179363"/>
+    <SolidColorBrush x:Key="Color_chart11" Color="#5E6C00"/>
+    <SolidColorBrush x:Key="Color_chart12" Color="#BABABA"/>
+
 </ResourceDictionary>
