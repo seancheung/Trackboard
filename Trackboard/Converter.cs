@@ -53,7 +53,7 @@ namespace Trackboard
         }
     }
 
-    [ValueConversion(typeof(object), typeof(string))]
+    [ValueConversion(typeof(object), typeof(object))]
     public class GradeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -81,7 +81,7 @@ namespace Trackboard
         }
     }
 
-    [ValueConversion(typeof(object), typeof(string))]
+    [ValueConversion(typeof(object), typeof(List<KeyValuePair<string, int>>))]
     public class CourseGradeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
