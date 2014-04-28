@@ -179,6 +179,7 @@
     <Content Include="DATABASE\Trackboard.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DLLs\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="DLLs\system.windows.controls.datavisualization.toolkit.dll" />
     <Content Include="DLLs\WPFToolkit.dll" />
   </ItemGroup>

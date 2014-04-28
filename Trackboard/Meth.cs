@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
+
 namespace Trackboard
 {
     class Meth
@@ -43,6 +44,11 @@ namespace Trackboard
         public List<Teacher> Teachers
         {
             get { return DATA.GetTeachers(); }
+        }
+
+        public List<Job> Jobs
+        {
+            get { return DATA.GetJobs(); }
         }
 
         /// <summary>
@@ -91,6 +97,29 @@ namespace Trackboard
             return Grades.Where(g => g.CoID == coid).ToList();
         }
 
+        public List<Job> GetJobBySID(string sid)
+        {
+            return Jobs.Where(j => j.SID == sid).ToList();
+        }
+
+        public List<Job> GetJobsByCID(string cid)
+        {
+            List<string> sids = Students.Where(s => s.CID == cid).Select(s => s.SID).ToList();
+            return Jobs.Where(j => sids.Contains(j.SID)).ToList();
+        }
+
+        public IEnumerable<int> GetTotalGrade(string cid)
+        {
+            var gl = Grades;
+            var sl = Students;
+
+            return
+                from g in gl
+                from s in sl
+                where s.CID == cid && g.SID == s.SID
+                group g by g.SID into r
+                select r.Sum(g => g.GMark);
+        }
 
     }
 }

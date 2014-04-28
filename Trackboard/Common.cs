@@ -91,4 +91,18 @@ namespace Trackboard
         [Column]
         public int UAuth { get; set; } //身份(11)<*>
     }
+
+    //工作
+    [Table(Name = "Job")]
+    public class Job
+    {
+        [Column]
+        public string SID { get; set; } //学号(10)<P>
+        [Column]
+        public string Company { get; set; } //公司名(50)<*>
+        [Column]
+        public int Salary { get; set; } //工资<*>
+        [Column]
+        public string City { get; set; } //城市(10)<*>
+    }
 }

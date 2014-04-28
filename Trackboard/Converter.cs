@@ -104,4 +104,53 @@ namespace Trackboard
         }
     }
 
+    [ValueConversion(typeof(object), typeof(object))]
+    public class JobConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return new Meth().GetJobBySID(value.ToString());
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(object))]
+    public class TotalGradeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var tg = new Meth().GetTotalGrade(value.ToString());
+            return new { Max = tg.Max(), Min = tg.Min(), Avg = tg.Average(), Data = tg.GroupBy(g => g).Select(p => new { Key = p.Key, Value = p.Count() }) };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    [ValueConversion(typeof(object), typeof(object))]
+    public class JobListConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var jb = new Meth().GetJobsByCID(value.ToString());
+            return new
+            {
+                Area = jb.GroupBy(j => j.City).Select(p => new { Key = p.Key, Value = p.Count() }),
+                Salary = jb.GroupBy(j => j.Salary).Select(p => new { Key = p.Key, Value = p.Count() }),
+                Company = jb.GroupBy(j => j.Company).Select(p => new { Key = p.Key, Value = p.Count() })
+            };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
 }

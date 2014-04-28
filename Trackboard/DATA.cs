@@ -89,5 +89,18 @@ namespace Trackboard
             }
 
         }
+
+        /// <summary>
+        /// 返回就业表
+        /// </summary>
+        /// <returns></returns>
+        public static List<Job> GetJobs()
+        {
+            using (var datacontex = new DataContext(ConnStr))
+            {
+                return datacontex.GetTable<Job>().ToList<Job>();
+            }
+
+        }
     }
 }
