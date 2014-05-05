@@ -8,7 +8,7 @@
         SnapsToDevicePixels="True"
         TextOptions.TextFormattingMode="Display"
         TextOptions.TextRenderingMode="ClearType"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         MouseLeftButtonDown="Window_MouseDown_1"
         PreviewKeyDown="Window_PreviewKeyDown_1"
         >

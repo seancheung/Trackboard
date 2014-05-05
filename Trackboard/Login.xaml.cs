@@ -18,6 +18,7 @@ namespace Trackboard
     /// </summary>
     public partial class Login : Window
     {
+
         public Login()
         {
             InitializeComponent();
@@ -35,7 +36,8 @@ namespace Trackboard
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            App.Current.Shutdown();
+			new Meth().InitLogin();
+			Close();
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -47,7 +49,7 @@ namespace Trackboard
             else
             {
                 textbox_info.Text = Meth.CurrentUser.UID + "登陆成功";
-                this.Close();
+                Close();
             }
         }
 

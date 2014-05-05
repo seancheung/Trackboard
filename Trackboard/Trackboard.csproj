@@ -174,10 +174,10 @@
     <Content Include="DATABASE\SCRIPTS\dbo.Teacher.sql" />
     <Content Include="DATABASE\SCRIPTS\dbo.User.sql" />
     <Content Include="DATABASE\Trackboard.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DATABASE\Trackboard.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DLLs\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="DLLs\system.windows.controls.datavisualization.toolkit.dll" />
