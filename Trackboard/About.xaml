@@ -1,0 +1,56 @@
+﻿<Window x:Class="Trackboard.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="320" Width="480" 
+        WindowStyle="None" ResizeMode="NoResize"
+        IsTabStop="False" AllowsTransparency="True" 
+        Background="Transparent" BorderBrush="#FF3F3F3F"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        WindowStartupLocation="CenterOwner"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Border
+        x:Name="m_edgeBorder"
+        x:FieldModifier="private"
+        Margin="10"
+        IsHitTestVisible="False"
+        BorderBrush="#FFACACAC"
+        BorderThickness="1"
+        IsEnabled="False"
+        Background="White">
+            <Border.Effect>
+                <DropShadowEffect
+                Opacity="0.56"
+                BlurRadius="16"
+                ShadowDepth="0" />
+            </Border.Effect>
+        </Border>
+        <Canvas>
+            <Path Canvas.Left="7" Canvas.Top="7" Width="100" Height="100" Fill="{StaticResource Color_a}" Data="M 50,0 L 100,0 100,3 97,3 3,97 3,100 0,100 0,50 Z"/>
+            <TextBlock Canvas.Left="0" Canvas.Top="37" Text="张玄/2014/作" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" FontSize="14" Foreground="Wheat">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-45"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock Canvas.Top="100" Canvas.Left="130" Text="本软件为毕业设计作品,仅供评估使用"/>
+            <TextBlock Canvas.Top="120" Canvas.Left="110" Text="张玄|Sean Cheung:  theoxuanx@gmail.com"/>
+            <TextBlock Canvas.Top="140" Canvas.Left="210" Text="2014.05"/>
+            <TextBlock Canvas.Top="160" Canvas.Left="205" Text="导师: 刘朔"/>
+        </Canvas>
+    </Grid>
+</Window>

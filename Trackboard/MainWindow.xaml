@@ -64,7 +64,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <GroupBox BorderThickness="0" Background="Transparent">
+                    <GroupBox Name="tchPanel" BorderThickness="0" Background="Transparent">
                         <StackPanel>
                             <ComboBox IsReadOnly="True" Margin="2" SelectionChanged="ComboBox_SelectionChanged_1">
                                 <System:String>班级视图</System:String>
@@ -98,6 +98,7 @@
                             <Button Name="btnQue" Style="{StaticResource ButtonMetro}" Width="100" Content="查询" Margin="4" Click="btnQue_Click"/>
                             <Button Name="btnPrf" Style="{StaticResource ButtonMetro}" Width="100" Content="资料" Margin="4" Click="btnPrf_Click"/>
                             <Button Name="btnOff" Style="{StaticResource ButtonMetro}" Width="100" Content="注销" Margin="4" Click="btnOff_Click"/>
+                            <Button Style="{StaticResource ButtonMetro}" Width="100" Content="关于" Margin="4" Click="Button_Click"/>
                         </StackPanel>
                     </Border>
                 </Grid>

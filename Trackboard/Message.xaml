@@ -6,7 +6,8 @@
         WindowStyle="None" AllowsTransparency="True"
         MouseLeftButtonDown="Window_DragMove"
         BorderThickness="0"
-        Background="Transparent" ShowInTaskbar="False" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Background="Transparent" ShowInTaskbar="False" SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

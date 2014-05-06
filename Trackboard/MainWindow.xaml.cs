@@ -37,6 +37,8 @@ namespace Trackboard
 					btnDel.Visibility = Visibility.Visible;
 					btnMod.Visibility = Visibility.Visible;
 					btnQue.Visibility = Visibility.Collapsed;
+					tchPanel.Visibility = Visibility.Collapsed;
+					mainList.Visibility = Visibility.Collapsed;
 					detailpanel.SetResourceReference(Control.TemplateProperty, "AdminPanelTemplate");
 					break;
 				case 1:
@@ -45,6 +47,9 @@ namespace Trackboard
 					btnDel.Visibility = Visibility.Collapsed;
 					btnMod.Visibility = Visibility.Collapsed;
 					btnQue.Visibility = Visibility.Visible;
+					tchPanel.Visibility = Visibility.Visible;
+					mainList.Visibility = Visibility.Visible;
+					detailpanel.SetResourceReference(Control.TemplateProperty, "StudentPanelTemplate");
 					break;
 				default:
 					adminPanel.Visibility = Visibility.Collapsed;
@@ -52,6 +57,10 @@ namespace Trackboard
 					btnDel.Visibility = Visibility.Collapsed;
 					btnMod.Visibility = Visibility.Collapsed;
 					btnQue.Visibility = Visibility.Collapsed;
+					tchPanel.Visibility = Visibility.Collapsed;
+					mainList.Visibility = Visibility.Collapsed;
+					detailpanel.SetResourceReference(Control.TemplateProperty, "StudentPanelTemplate");
+					mainList.ItemsSource = Meth.Students.Where(s => s.SID == Meth.CurrentUser.UID);
 					break;
 			}
 		}
@@ -178,6 +187,9 @@ namespace Trackboard
 					{
 						Meth.UpdateCourse(obj as Course);
 					}
+					else
+						return;
+
 					Message.Show("修改成功");
 				}
 				catch (Exception ex)
@@ -186,7 +198,7 @@ namespace Trackboard
 				}
 				#endregion
 			}
-			
+
 
 		}
 
@@ -224,6 +236,8 @@ namespace Trackboard
 					{
 						Meth.DeleteGrade(obj as Grade);
 					}
+					else
+						return;
 
 					Message.Show("删除成功");
 				}
@@ -233,7 +247,7 @@ namespace Trackboard
 				}
 				#endregion
 			}
-			
+
 		}
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -263,6 +277,8 @@ namespace Trackboard
 					{
 						Meth.AddCourse(obj as Course);
 					}
+					else
+						return;
 
 					Message.Show("添加成功");
 
@@ -321,6 +337,11 @@ namespace Trackboard
 			dg.Columns[1].Header = "课程号";
 			dg.Columns[2].Header = "课程名";
 			dg.Columns[3].Header = "教师号";
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			new About() { Owner = this }.ShowDialog();
 		}
 
 
