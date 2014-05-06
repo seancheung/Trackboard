@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Linq;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Windows;
 
 
 namespace Trackboard
 {
-    class Meth
-    {
-        //当前已登录用户
-        public static User CurrentUser { get; private set; }
+	class Meth
+	{
+		//当前已登录用户
+		public static User CurrentUser { get; private set; }
+
+		private static readonly string PasswordHash = "1f02796a";
+		private static readonly string SaltKey = "c2a9e9eb";
+		private static readonly string VIKey = "9b05a3b5-ad2e-d5";
 
 		#region 数据表
 		public static List<Student> Students
@@ -50,17 +54,17 @@ namespace Trackboard
 		}
 		#endregion
 
-        /// <summary>
-        /// 用户检查
-        /// </summary>
-        /// <param name="UID"></param>
-        /// <param name="UPwd"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// 用户检查
+		/// </summary>
+		/// <param name="UID"></param>
+		/// <param name="UPwd"></param>
+		/// <returns></returns>
 		public static Boolean CheckLogin(string UID, string UPwd)
-        {
-            CurrentUser = Users.Find(u => u.UID == UID && u.UPwd == UPwd);
-            return CurrentUser != null;
-        }
+		{
+			CurrentUser = Users.Find(u => u.UID == UID && u.UPwd == UPwd);
+			return CurrentUser != null;
+		}
 
 		/// <summary>
 		/// 初始化登录
@@ -454,5 +458,116 @@ namespace Trackboard
 			}
 		}
 		#endregion
-    }
+
+		#region 登录操作
+		/// <summary>
+		/// 保存登录记录
+		/// </summary>
+		/// <param name="user"></param>
+		public static void SaveUData(User user)
+		{
+			try
+			{
+				using (var fs = File.Create("tbudat"))
+				{
+					using (var bw = new BinaryWriter(fs))
+					{
+						bw.Write(Encrypt(user.UID));
+						bw.Write(Encrypt(user.UPwd));
+					}
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// 读取登录记录
+		/// </summary>
+		/// <returns></returns>
+		public static User ReadUData()
+		{
+			User user = new User();
+
+			if (!File.Exists("tbudat"))
+				return user;
+
+			try
+			{
+				using (var br = new BinaryReader(File.OpenRead("tbudat")))
+				{
+					user.UID = Decrypt(br.ReadString());
+					user.UPwd = Decrypt(br.ReadString());
+				}
+
+				return user;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		/// <summary>
+		/// 清除登录记录
+		/// </summary>
+		public static void ClearUData()
+		{
+			File.Delete("tbudat");
+		}
+
+		/// <summary>
+		/// 加密
+		/// </summary>
+		/// <param name="plainText"></param>
+		/// <returns></returns>
+		private static string Encrypt(string plainText)
+		{
+			byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+			byte[] keyBytes = new Rfc2898DeriveBytes(PasswordHash, Encoding.ASCII.GetBytes(SaltKey)).GetBytes(256 / 8);
+			var symmetricKey = new RijndaelManaged() { Mode = CipherMode.CBC, Padding = PaddingMode.Zeros };
+			var encryptor = symmetricKey.CreateEncryptor(keyBytes, Encoding.ASCII.GetBytes(VIKey));
+
+			byte[] cipherTextBytes;
+
+			using (var memoryStream = new MemoryStream())
+			{
+				using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+				{
+					cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+					cryptoStream.FlushFinalBlock();
+					cipherTextBytes = memoryStream.ToArray();
+					cryptoStream.Close();
+				}
+				memoryStream.Close();
+			}
+			return Convert.ToBase64String(cipherTextBytes);
+		}
+
+		/// <summary>
+		/// 解密
+		/// </summary>
+		/// <param name="encryptedText"></param>
+		/// <returns></returns>
+		private static string Decrypt(string encryptedText)
+		{
+			byte[] cipherTextBytes = Convert.FromBase64String(encryptedText);
+			byte[] keyBytes = new Rfc2898DeriveBytes(PasswordHash, Encoding.ASCII.GetBytes(SaltKey)).GetBytes(256 / 8);
+			var symmetricKey = new RijndaelManaged() { Mode = CipherMode.CBC, Padding = PaddingMode.None };
+
+			var decryptor = symmetricKey.CreateDecryptor(keyBytes, Encoding.ASCII.GetBytes(VIKey));
+			var memoryStream = new MemoryStream(cipherTextBytes);
+			var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+			byte[] plainTextBytes = new byte[cipherTextBytes.Length];
+
+			int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
+			memoryStream.Close();
+			cryptoStream.Close();
+			return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount).TrimEnd("\0".ToCharArray());
+		}
+		#endregion
+	}
 }

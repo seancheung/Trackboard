@@ -54,6 +54,7 @@
             <PasswordBox Name="passwordbox_pwd" Width="120" Height="25" Canvas.Left="250" Canvas.Top="110" BorderBrush="#FF959595" CaretBrush="{StaticResource Color_a}" Foreground="#FF404040" SelectionBrush="{StaticResource Color_a}"/>
             <Button Canvas.Left="195" Canvas.Top="150" Style="{StaticResource ButtonMetro}" Height="40" Width="90" Background="{StaticResource Color_a}" Content="登陆" Click="Button_Click_3"/>
             <TextBlock Name="textbox_info" Width="400" Canvas.Left="40" Canvas.Top="210" Text="登陆提示" TextAlignment="Center" Foreground="{StaticResource Color_a}"/>
+            <CheckBox Name="chkRem" Canvas.Left="300" Canvas.Top="174" Content="记住密码" Foreground="{StaticResource Color_a}"/>
         </Canvas>
     </Grid>
 </Window>

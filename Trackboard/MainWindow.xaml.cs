@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using System.Windows.Media.Animation;
 
 namespace Trackboard
 {
@@ -45,19 +36,22 @@ namespace Trackboard
 					btnAdd.Visibility = Visibility.Visible;
 					btnDel.Visibility = Visibility.Visible;
 					btnMod.Visibility = Visibility.Visible;
+					btnQue.Visibility = Visibility.Collapsed;
 					detailpanel.SetResourceReference(Control.TemplateProperty, "AdminPanelTemplate");
 					break;
 				case 1:
 					adminPanel.Visibility = Visibility.Collapsed;
-					btnAdd.Visibility = Visibility.Visible;
-					btnDel.Visibility = Visibility.Visible;
-					btnMod.Visibility = Visibility.Visible;
+					btnAdd.Visibility = Visibility.Collapsed;
+					btnDel.Visibility = Visibility.Collapsed;
+					btnMod.Visibility = Visibility.Collapsed;
+					btnQue.Visibility = Visibility.Visible;
 					break;
 				default:
 					adminPanel.Visibility = Visibility.Collapsed;
 					btnAdd.Visibility = Visibility.Collapsed;
 					btnDel.Visibility = Visibility.Collapsed;
 					btnMod.Visibility = Visibility.Collapsed;
+					btnQue.Visibility = Visibility.Collapsed;
 					break;
 			}
 		}
@@ -146,162 +140,140 @@ namespace Trackboard
 
 		private void btnPrf_Click(object sender, RoutedEventArgs e)
 		{
-
+			new Profile().ShowDialog();
 		}
 
 		private void btnQue_Click(object sender, RoutedEventArgs e)
 		{
-
+			new Query().ShowDialog();
 		}
 
 		private void btnMod_Click(object sender, RoutedEventArgs e)
 		{
-			switch (Meth.CurrentUser.UAuth)
+			if (Meth.CurrentUser.UAuth == 2)
 			{
-				case 0:
+				#region 管理员操作
+				var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+				var obj = dg.SelectedValue;
+				if (obj == null) return;
 
-					break;
-				case 1:
-					break;
-				case 2:
-					#region 管理员操作
-					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
-					var obj = dg.SelectedValue;
-					if (obj == null) return;
+				var res = Message.Show("修改警告", "确认修改?", MessageBoxButton.YesNoCancel);
+				if (res != MessageBoxResult.Yes) return;
 
-					var res = Message.Show("修改警告", "确认修改?", MessageBoxButton.YesNoCancel);
-					if (res != MessageBoxResult.Yes) return;
-
-					try
+				try
+				{
+					if (obj is User)
 					{
-						if (obj is User)
-						{
-							Meth.UpdateUser(obj as User);
-						}
-						else if (obj is Teacher)
-						{
-							Meth.UpdateTeacher(obj as Teacher);
-						}
-						else if (obj is Student)
-						{
-							Meth.UpdateStudent(obj as Student);
-						}
-						else if (obj is Course)
-						{
-							Meth.UpdateCourse(obj as Course);
-						}
-						Message.Show("修改成功");
+						Meth.UpdateUser(obj as User);
 					}
-					catch (Exception ex)
+					else if (obj is Teacher)
 					{
-						Message.Show(String.Format("修改失败:\n{0}", ex.Message));
+						Meth.UpdateTeacher(obj as Teacher);
 					}
-					#endregion
-					break;
-				default: break;
+					else if (obj is Student)
+					{
+						Meth.UpdateStudent(obj as Student);
+					}
+					else if (obj is Course)
+					{
+						Meth.UpdateCourse(obj as Course);
+					}
+					Message.Show("修改成功");
+				}
+				catch (Exception ex)
+				{
+					Message.Show(String.Format("修改失败:\n{0}", ex.Message));
+				}
+				#endregion
 			}
 			
+
 		}
 
 		private void btnDel_Click(object sender, RoutedEventArgs e)
 		{
-			switch (Meth.CurrentUser.UAuth)
+			if (Meth.CurrentUser.UAuth == 2)
 			{
-				case 0:
-					
-					break;
-				case 1:
-					break;
-				case 2:
-					#region 管理员操作
-					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
-					var obj = dg.SelectedValue;
-					if (obj == null) return;
+				#region 管理员操作
+				var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+				var obj = dg.SelectedValue;
+				if (obj == null) return;
 
-					var res = Message.Show("删除警告", "确认删除?", MessageBoxButton.YesNoCancel);
-					if (res != MessageBoxResult.Yes) return;
+				var res = Message.Show("删除警告", "确认删除?", MessageBoxButton.YesNoCancel);
+				if (res != MessageBoxResult.Yes) return;
 
-					try
+				try
+				{
+					if (obj is User)
 					{
-						if (obj is User)
-						{
-							Meth.DeleteUser(obj as User);
-						}
-						else if (obj is Teacher)
-						{
-							Meth.DeleteTeacher(obj as Teacher);
-						}
-						else if (obj is Student)
-						{
-							Meth.DeleteStudent(obj as Student);
-						}
-						else if (obj is Course)
-						{
-							Meth.DeleteCourse(obj as Course);
-						}
-						else if (obj is Grade)
-						{
-							Meth.DeleteGrade(obj as Grade);
-						}
-
-						Message.Show("删除成功");
+						Meth.DeleteUser(obj as User);
 					}
-					catch (Exception ex)
+					else if (obj is Teacher)
 					{
-						Message.Show(String.Format("删除失败:\n{0}", ex.Message));
+						Meth.DeleteTeacher(obj as Teacher);
 					}
-					#endregion
-					break;
-				default: break;
+					else if (obj is Student)
+					{
+						Meth.DeleteStudent(obj as Student);
+					}
+					else if (obj is Course)
+					{
+						Meth.DeleteCourse(obj as Course);
+					}
+					else if (obj is Grade)
+					{
+						Meth.DeleteGrade(obj as Grade);
+					}
+
+					Message.Show("删除成功");
+				}
+				catch (Exception ex)
+				{
+					Message.Show(String.Format("删除失败:\n{0}", ex.Message));
+				}
+				#endregion
 			}
+			
 		}
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
-			switch (Meth.CurrentUser.UAuth)
+			if (Meth.CurrentUser.UAuth == 2)
 			{
-				case 0:
+				#region 管理员操作
+				var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+				var obj = dg.SelectedValue;
+				if (obj == null) return;
 
-					break;
-				case 1:
-					break;
-				case 2:
-					#region 管理员操作
-					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
-					var obj = dg.SelectedValue;
-					if (obj == null) return;
-
-					try
+				try
+				{
+					if (obj is User)
 					{
-						if (obj is User)
-						{
-							Meth.AddUser(obj as User);
-						}
-						else if (obj is Teacher)
-						{
-							Meth.AddTeacher(obj as Teacher);
-						}
-						else if (obj is Student)
-						{
-							Meth.AddStudent(obj as Student);
-						}
-						else if (obj is Course)
-						{
-							Meth.AddCourse(obj as Course);
-						}
-
-						Message.Show("添加成功");
-
+						Meth.AddUser(obj as User);
 					}
-					catch (Exception ex)
+					else if (obj is Teacher)
 					{
-						Message.Show(String.Format("添加失败:\n{0}", ex.Message));
+						Meth.AddTeacher(obj as Teacher);
 					}
-					#endregion
-					break;
-				default: break;
+					else if (obj is Student)
+					{
+						Meth.AddStudent(obj as Student);
+					}
+					else if (obj is Course)
+					{
+						Meth.AddCourse(obj as Course);
+					}
+
+					Message.Show("添加成功");
+
+				}
+				catch (Exception ex)
+				{
+					Message.Show(String.Format("添加失败:\n{0}", ex.Message));
+				}
+				#endregion
 			}
-			
+
 		}
 
 		private void btnUser_Click(object sender, RoutedEventArgs e)
