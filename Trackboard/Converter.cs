@@ -58,7 +58,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Meth().GetGradesByStudent(value.ToString());
+			return Meth.GetGradesByStudent(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,7 +72,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Meth().GetClassName(value.ToString());
+			return Meth.GetClassName(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -86,7 +86,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var gs = new Meth().GetGradesByCourse(value.ToString());
+			var gs = Meth.GetGradesByCourse(value.ToString());
 
 
             return new List<KeyValuePair<string, int>>()
@@ -109,7 +109,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Meth().GetJobBySID(value.ToString());
+			return Meth.GetJobBySID(value.ToString());
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -123,7 +123,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var tg = new Meth().GetTotalGrade(value.ToString());
+			var tg = Meth.GetTotalGrade(value.ToString());
             return new { Max = tg.Max(), Min = tg.Min(), Avg = tg.Average(), Data = tg.GroupBy(g => g).Select(p => new { Key = p.Key, Value = p.Count() }) };
         }
 
@@ -138,7 +138,7 @@ namespace Trackboard
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var jb = new Meth().GetJobsByCID(value.ToString());
+			var jb = Meth.GetJobsByCID(value.ToString());
             return new
             {
                 Area = jb.GroupBy(j => j.City).Select(p => new { Key = p.Key, Value = p.Count() }),

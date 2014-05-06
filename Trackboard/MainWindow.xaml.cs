@@ -45,7 +45,7 @@ namespace Trackboard
 					btnAdd.Visibility = Visibility.Visible;
 					btnDel.Visibility = Visibility.Visible;
 					btnMod.Visibility = Visibility.Visible;
-					mainList.SetResourceReference(Control.TemplateProperty, "AdminPanelTemplate");
+					detailpanel.SetResourceReference(Control.TemplateProperty, "AdminPanelTemplate");
 					break;
 				case 1:
 					adminPanel.Visibility = Visibility.Collapsed;
@@ -100,7 +100,7 @@ namespace Trackboard
 				comboSub.ItemsSource = null;
 				comboSub.Visibility = Visibility.Collapsed;
 				mainList.SetResourceReference(ListBox.ItemTemplateProperty, "ClassListTemplate");
-				mainList.ItemsSource = new Meth().Classes;
+				mainList.ItemsSource = Meth.Classes;
 				detailpanel.SetResourceReference(Control.TemplateProperty, "ClassPanelTemplate");
 			}
 			else if (e.AddedItems[0].ToString() == "课程视图")
@@ -108,17 +108,17 @@ namespace Trackboard
 				comboSub.ItemsSource = null;
 				comboSub.Visibility = Visibility.Collapsed;
 				mainList.SetResourceReference(ListBox.ItemTemplateProperty, "CourseListTemplate");
-				mainList.ItemsSource = new Meth().Courses;
+				mainList.ItemsSource = Meth.Courses;
 				detailpanel.SetResourceReference(Control.TemplateProperty, "CoursePanelTemplate");
 
 			}
 			else
 			{
 				comboSub.DisplayMemberPath = "CName";
-				comboSub.ItemsSource = new Meth().Classes;
+				comboSub.ItemsSource = Meth.Classes;
 				comboSub.Visibility = Visibility.Visible;
 				mainList.SetResourceReference(ListBox.ItemTemplateProperty, "StudentListTemplate");
-				mainList.ItemsSource = new Meth().Students;
+				mainList.ItemsSource = Meth.Students;
 				detailpanel.SetResourceReference(Control.TemplateProperty, "StudentPanelTemplate");
 			}
 		}
@@ -126,7 +126,7 @@ namespace Trackboard
 		private void comboSub_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
 		{
 			if (comboSub.ItemsSource != null)
-				mainList.ItemsSource = new Meth().Students.Where(s => s.CID == (e.AddedItems[0] as Class).CID);
+				mainList.ItemsSource = Meth.Students.Where(s => s.CID == (e.AddedItems[0] as Class).CID);
 		}
 
 		private void btnOff_Click(object sender, RoutedEventArgs e)
@@ -141,7 +141,7 @@ namespace Trackboard
 			}
 			else
 				Close();
-			
+
 		}
 
 		private void btnPrf_Click(object sender, RoutedEventArgs e)
@@ -156,17 +156,199 @@ namespace Trackboard
 
 		private void btnMod_Click(object sender, RoutedEventArgs e)
 		{
+			switch (Meth.CurrentUser.UAuth)
+			{
+				case 0:
+
+					break;
+				case 1:
+					break;
+				case 2:
+					#region 管理员操作
+					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+					var obj = dg.SelectedValue;
+					if (obj == null) return;
+
+					var res = Message.Show("修改警告", "确认修改?", MessageBoxButton.YesNoCancel);
+					if (res != MessageBoxResult.Yes) return;
+
+					try
+					{
+						if (obj is User)
+						{
+							Meth.UpdateUser(obj as User);
+						}
+						else if (obj is Teacher)
+						{
+							Meth.UpdateTeacher(obj as Teacher);
+						}
+						else if (obj is Student)
+						{
+							Meth.UpdateStudent(obj as Student);
+						}
+						else if (obj is Course)
+						{
+							Meth.UpdateCourse(obj as Course);
+						}
+						Message.Show("修改成功");
+					}
+					catch (Exception ex)
+					{
+						Message.Show(String.Format("修改失败:\n{0}", ex.Message));
+					}
+					#endregion
+					break;
+				default: break;
+			}
 			
 		}
 
 		private void btnDel_Click(object sender, RoutedEventArgs e)
 		{
-			
+			switch (Meth.CurrentUser.UAuth)
+			{
+				case 0:
+					
+					break;
+				case 1:
+					break;
+				case 2:
+					#region 管理员操作
+					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+					var obj = dg.SelectedValue;
+					if (obj == null) return;
+
+					var res = Message.Show("删除警告", "确认删除?", MessageBoxButton.YesNoCancel);
+					if (res != MessageBoxResult.Yes) return;
+
+					try
+					{
+						if (obj is User)
+						{
+							Meth.DeleteUser(obj as User);
+						}
+						else if (obj is Teacher)
+						{
+							Meth.DeleteTeacher(obj as Teacher);
+						}
+						else if (obj is Student)
+						{
+							Meth.DeleteStudent(obj as Student);
+						}
+						else if (obj is Course)
+						{
+							Meth.DeleteCourse(obj as Course);
+						}
+						else if (obj is Grade)
+						{
+							Meth.DeleteGrade(obj as Grade);
+						}
+
+						Message.Show("删除成功");
+					}
+					catch (Exception ex)
+					{
+						Message.Show(String.Format("删除失败:\n{0}", ex.Message));
+					}
+					#endregion
+					break;
+				default: break;
+			}
 		}
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
+			switch (Meth.CurrentUser.UAuth)
+			{
+				case 0:
+
+					break;
+				case 1:
+					break;
+				case 2:
+					#region 管理员操作
+					var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+					var obj = dg.SelectedValue;
+					if (obj == null) return;
+
+					try
+					{
+						if (obj is User)
+						{
+							Meth.AddUser(obj as User);
+						}
+						else if (obj is Teacher)
+						{
+							Meth.AddTeacher(obj as Teacher);
+						}
+						else if (obj is Student)
+						{
+							Meth.AddStudent(obj as Student);
+						}
+						else if (obj is Course)
+						{
+							Meth.AddCourse(obj as Course);
+						}
+
+						Message.Show("添加成功");
+
+					}
+					catch (Exception ex)
+					{
+						Message.Show(String.Format("添加失败:\n{0}", ex.Message));
+					}
+					#endregion
+					break;
+				default: break;
+			}
 			
+		}
+
+		private void btnUser_Click(object sender, RoutedEventArgs e)
+		{
+			detailpanel.DataContext = Meth.Users;
+
+			var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+			dg.Columns[0].Visibility = Visibility.Collapsed;
+			dg.Columns[1].Header = "用户名";
+			dg.Columns[2].Header = "密码";
+			dg.Columns[3].Header = "身份";
+		}
+
+		private void btnStu_Click(object sender, RoutedEventArgs e)
+		{
+			detailpanel.DataContext = Meth.Students;
+
+			var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+			dg.Columns[0].Visibility = Visibility.Collapsed;
+			dg.Columns[1].Header = "学号";
+			dg.Columns[2].Header = "姓名";
+			dg.Columns[3].Header = "性别";
+			dg.Columns[4].Header = "出生日期";
+			dg.Columns[5].Header = "班级号";
+			dg.Columns[6].Header = "手机号";
+		}
+
+		private void btnTch_Click(object sender, RoutedEventArgs e)
+		{
+			detailpanel.DataContext = Meth.Teachers;
+
+			var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+			dg.Columns[0].Visibility = Visibility.Collapsed;
+			dg.Columns[1].Header = "教师号";
+			dg.Columns[2].Header = "姓名";
+			dg.Columns[3].Header = "手机号";
+		}
+
+		private void btnCos_Click(object sender, RoutedEventArgs e)
+		{
+			detailpanel.DataContext = Meth.Courses;
+
+			var dg = detailpanel.Template.FindName("adminView", detailpanel) as DataGrid;
+			dg.Columns[0].Visibility = Visibility.Collapsed;
+			dg.Columns[1].Header = "课程号";
+			dg.Columns[2].Header = "课程名";
+			dg.Columns[3].Header = "教师号";
 		}
 
 

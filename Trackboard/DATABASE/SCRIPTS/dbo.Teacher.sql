@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [dbo].[Teacher] (
+    [ID]     INT          IDENTITY (1, 1) NOT NULL,
     [TID]    VARCHAR (10) NOT NULL,
     [TName]  NVARCHAR (8) NOT NULL,
     [TPhone] VARCHAR (11) NULL,
-    PRIMARY KEY CLUSTERED ([TID] ASC)
+    PRIMARY KEY CLUSTERED ([ID] ASC),
+    UNIQUE NONCLUSTERED ([TID] ASC)
 );
 

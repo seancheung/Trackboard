@@ -36,7 +36,7 @@ namespace Trackboard
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-			new Meth().InitLogin();
+			Meth.InitLogin();
 			Close();
         }
 
@@ -44,7 +44,7 @@ namespace Trackboard
         {
             if (string.IsNullOrWhiteSpace(textbox_uid.Text) || string.IsNullOrWhiteSpace(passwordbox_pwd.Password))
                 textbox_info.Text = "请检查输入";
-            else if (!new Meth().CheckLogin(textbox_uid.Text, passwordbox_pwd.Password))
+			else if (!Meth.CheckLogin(textbox_uid.Text, passwordbox_pwd.Password))
                 textbox_info.Text = "用户名或密码错误";
             else
             {

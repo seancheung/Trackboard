@@ -77,10 +77,10 @@
                     <ListBox x:Name="mainList" Grid.Row="1" Margin="4,2" IsSynchronizedWithCurrentItem="True"/>
                     <Border Name="adminPanel" Grid.RowSpan="2" Background="{StaticResource Color_a}" Visibility="Visible">
                         <StackPanel Orientation="Vertical">
-                            <Button Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="用户"/>
-                            <Button Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="学生"/>
-                            <Button Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="教师"/>
-                            <Button Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="课程"/>
+                            <Button Name="btnUser" Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="用户" Click="btnUser_Click"/>
+                            <Button Name="btnStu" Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="学生" Click="btnStu_Click"/>
+                            <Button Name="btnTch" Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="教师" Click="btnTch_Click"/>
+                            <Button Name="btnCos" Style="{StaticResource ButtonMetro}" Height="100" Margin="4" Content="课程" Click="btnCos_Click"/>
                         </StackPanel>
                     </Border>
                 </Grid>

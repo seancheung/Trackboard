@@ -15,7 +15,9 @@ namespace Trackboard
 	[Table(Name = "Student")]
 	public class Student
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true,IsDbGenerated=true)]
+		public int ID { get; set; }
+		[Column]
 		public string SID { get; set; } //学号(10)<P>
 		[Column]
 		public string SName { get; set; } //姓名(8)
@@ -33,7 +35,9 @@ namespace Trackboard
 	[Table(Name = "Course")]
 	public class Course
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string CoID { get; set; } //课程号(10)<P>
 		[Column]
 		public string CoName { get; set; } //课程名(12)
@@ -45,9 +49,11 @@ namespace Trackboard
 	[Table(Name = "Grade")]
 	public class Grade
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string SID { get; set; } //学号(10)<P>
-		[Column(IsPrimaryKey = true)]
+		[Column]
 		public string CoID { get; set; } //课程号(10)<P>
 		[Column]
 		public int GMark { get; set; } //分数<*>
@@ -57,7 +63,9 @@ namespace Trackboard
 	[Table(Name = "Class")]
 	public class Class
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string CID { get; set; } //班级号(10)<P>
 		[Column]
 		public string CName { get; set; } //班级名(10)
@@ -69,7 +77,9 @@ namespace Trackboard
 	[Table(Name = "Teacher")]
 	public class Teacher
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string TID { get; set; } //教师号(10)<P>
 		[Column]
 		public string TName { get; set; } //教师名(8)
@@ -81,7 +91,9 @@ namespace Trackboard
 	[Table(Name = "User")]
 	public class User
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string UID { get; set; } //用户名(10)<P>
 		[Column]
 		public string UPwd { get; set; } //密码(20)
@@ -93,7 +105,9 @@ namespace Trackboard
 	[Table(Name = "Job")]
 	public class Job
 	{
-		[Column(IsPrimaryKey = true)]
+		[Column(IsPrimaryKey = true, IsDbGenerated = true)]
+		public int ID { get; set; }
+		[Column]
 		public string SID { get; set; } //学号(10)<P>
 		[Column]
 		public string Company { get; set; } //公司名(50)<*>

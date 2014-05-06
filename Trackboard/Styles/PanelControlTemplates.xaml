@@ -15,8 +15,8 @@
     <cv:JobListConverter x:Key="jblcv"/>
 
     <ControlTemplate x:Key="AdminPanelTemplate">
-        <Grid>
-            <DataGrid Name="adminView" Margin="2"/>
+        <Grid DataContext="{Binding}">
+            <DataGrid Name="adminView" Margin="2" ItemsSource="{Binding}"/>
         </Grid>
     </ControlTemplate>
     

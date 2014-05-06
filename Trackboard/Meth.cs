@@ -14,37 +14,37 @@ namespace Trackboard
         public static User CurrentUser { get; private set; }
 
 		#region 数据表
-		public List<Student> Students
+		public static List<Student> Students
 		{
 			get { return DATA.GetStudents(); }
 		}
 
-		public List<Class> Classes
+		public static List<Class> Classes
 		{
 			get { return DATA.GetClasses(); }
 		}
 
-		public List<Course> Courses
+		public static List<Course> Courses
 		{
 			get { return DATA.GetCourses(); }
 		}
 
-		public List<User> Users
+		public static List<User> Users
 		{
 			get { return DATA.GetUsers(); }
 		}
 
-		public List<Grade> Grades
+		public static List<Grade> Grades
 		{
 			get { return DATA.GetGrades(); }
 		}
 
-		public List<Teacher> Teachers
+		public static List<Teacher> Teachers
 		{
 			get { return DATA.GetTeachers(); }
 		}
 
-		public List<Job> Jobs
+		public static List<Job> Jobs
 		{
 			get { return DATA.GetJobs(); }
 		}
@@ -56,7 +56,7 @@ namespace Trackboard
         /// <param name="UID"></param>
         /// <param name="UPwd"></param>
         /// <returns></returns>
-        public Boolean CheckLogin(string UID, string UPwd)
+		public static Boolean CheckLogin(string UID, string UPwd)
         {
             CurrentUser = Users.Find(u => u.UID == UID && u.UPwd == UPwd);
             return CurrentUser != null;
@@ -65,7 +65,7 @@ namespace Trackboard
 		/// <summary>
 		/// 初始化登录
 		/// </summary>
-		public void InitLogin()
+		public static void InitLogin()
 		{
 			CurrentUser = null;
 		}
@@ -76,7 +76,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="sid">指定学号</param>
 		/// <returns>包含课程名，分数和任课教师的分数表</returns>
-		public object GetGradesByStudent(string sid)
+		public static object GetGradesByStudent(string sid)
 		{
 			var gl = Grades;
 			var cl = Courses;
@@ -100,7 +100,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="cid"></param>
 		/// <returns></returns>
-		public string GetClassName(string cid)
+		public static string GetClassName(string cid)
 		{
 			return Classes.First(c => c.CID == cid).CName;
 		}
@@ -110,7 +110,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="coid"></param>
 		/// <returns></returns>
-		public IEnumerable<Grade> GetGradesByCourse(string coid)
+		public static IEnumerable<Grade> GetGradesByCourse(string coid)
 		{
 			return Grades.Where(g => g.CoID == coid).ToList();
 		}
@@ -120,7 +120,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="sid"></param>
 		/// <returns></returns>
-		public IEnumerable<Job> GetJobBySID(string sid)
+		public static IEnumerable<Job> GetJobBySID(string sid)
 		{
 			return Jobs.Where(j => j.SID == sid).ToList();
 		}
@@ -130,7 +130,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="cid"></param>
 		/// <returns></returns>
-		public IEnumerable<Job> GetJobsByCID(string cid)
+		public static IEnumerable<Job> GetJobsByCID(string cid)
 		{
 			List<string> sids = Students.Where(s => s.CID == cid).Select(s => s.SID).ToList();
 			return Jobs.Where(j => sids.Contains(j.SID)).ToList();
@@ -141,7 +141,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="cid"></param>
 		/// <returns></returns>
-		public IEnumerable<int> GetTotalGrade(string cid)
+		public static IEnumerable<int> GetTotalGrade(string cid)
 		{
 			var gl = Grades;
 			var sl = Students;
@@ -160,30 +160,48 @@ namespace Trackboard
 		/// 增加用户
 		/// </summary>
 		/// <param name="user"></param>
-		/// <returns></returns>
-		public bool AddUser(User user)
+		public static void AddUser(User user)
 		{
-			return DATA.AddUser(user);
+			try
+			{
+				DATA.AddUser(user);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除用户
 		/// </summary>
 		/// <param name="user"></param>
-		/// <returns></returns>
-		public bool DeleteUser(User user)
+		public static void DeleteUser(User user)
 		{
-			return DATA.DeleteUser(user);
+			try
+			{
+				DATA.DeleteUser(user);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改用户
 		/// </summary>
 		/// <param name="user"></param>
-		/// <returns></returns>
-		public bool UpdateUser(User user)
+		public static void UpdateUser(User user)
 		{
-			return DATA.UpdateUser(user);
+			try
+			{
+				DATA.UpdateUser(user);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
 
@@ -192,30 +210,48 @@ namespace Trackboard
 		/// 增加课程
 		/// </summary>
 		/// <param name="course"></param>
-		/// <returns></returns>
-		public bool AddCourse(Course course)
+		public static void AddCourse(Course course)
 		{
-			return DATA.AddCourse(course);
+			try
+			{
+				DATA.AddCourse(course);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除课程
 		/// </summary>
 		/// <param name="course"></param>
-		/// <returns></returns>
-		public bool DeleteCourse(Course course)
+		public static void DeleteCourse(Course course)
 		{
-			return DATA.DeleteCourse(course);
+			try
+			{
+				DATA.DeleteCourse(course);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改课程
 		/// </summary>
 		/// <param name="course"></param>
-		/// <returns></returns>
-		public bool UpdateCourse(Course course)
+		public static void UpdateCourse(Course course)
 		{
-			return DATA.UpdateCourse(course);
+			try
+			{
+				DATA.UpdateCourse(course);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
 
@@ -224,30 +260,48 @@ namespace Trackboard
 		/// 增加分数
 		/// </summary>
 		/// <param name="grade"></param>
-		/// <returns></returns>
-		public bool AddGrade(Grade grade)
+		public static void AddGrade(Grade grade)
 		{
-			return DATA.AddGrade(grade);
+			try
+			{
+				DATA.AddGrade(grade);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除分数
 		/// </summary>
 		/// <param name="grade"></param>
-		/// <returns></returns>
-		public bool DeleteGrade(Grade grade)
+		public static void DeleteGrade(Grade grade)
 		{
-			return DATA.DeleteGrade(grade);
+			try
+			{
+				DATA.DeleteGrade(grade);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改分数
 		/// </summary>
 		/// <param name="grade"></param>
-		/// <returns></returns>
-		public bool UpdateGrade(Grade grade)
+		public static void UpdateGrade(Grade grade)
 		{
-			return DATA.UpdateGrade(grade);
+			try
+			{
+				DATA.UpdateGrade(grade);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
 
@@ -256,30 +310,48 @@ namespace Trackboard
 		/// 增加学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public bool AddStudent(Student student)
+		public static void AddStudent(Student student)
 		{
-			return DATA.AddStudent(student);
+			try
+			{
+				DATA.AddStudent(student);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public bool DeleteStudent(Student student)
+		public static void DeleteStudent(Student student)
 		{
-			return DATA.DeleteStudent(student);
+			try
+			{
+				DATA.DeleteStudent(student);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public bool UpdateStudent(Student student)
+		public static void UpdateStudent(Student student)
 		{
-			return DATA.UpdateStudent(student);
+			try
+			{
+				DATA.UpdateStudent(student);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
 
@@ -288,30 +360,48 @@ namespace Trackboard
 		/// 增加教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public bool AddTeacher(Teacher teacher)
+		public static void AddTeacher(Teacher teacher)
 		{
-			return DATA.AddTeacher(teacher);
+			try
+			{
+				DATA.AddTeacher(teacher);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public bool DeleteTeacher(Teacher teacher)
+		public static void DeleteTeacher(Teacher teacher)
 		{
-			return DATA.DeleteTeacher(teacher);
+			try
+			{
+				DATA.DeleteTeacher(teacher);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public bool UpdateTeacher(Teacher teacher)
+		public static void UpdateTeacher(Teacher teacher)
 		{
-			return DATA.UpdateTeacher(teacher);
+			try
+			{
+				DATA.UpdateTeacher(teacher);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
 
@@ -320,30 +410,48 @@ namespace Trackboard
 		/// 增加工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public bool AddJob(Job job)
+		public static void AddJob(Job job)
 		{
-			return DATA.AddJob(job);
+			try
+			{
+				DATA.AddJob(job);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 删除工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public bool DeleteJob(Job job)
+		public static void DeleteJob(Job job)
 		{
-			return DATA.DeleteJob(job);
+			try
+			{
+				DATA.DeleteJob(job);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// 修改工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public bool UpdateJob(Job job)
+		public static void UpdateJob(Job job)
 		{
-			return DATA.UpdateJob(job);
+			try
+			{
+				DATA.UpdateJob(job);
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
 		}
 		#endregion
     }

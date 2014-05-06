@@ -112,7 +112,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public static bool AddUser(User user)
+		public static void AddUser(User user)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -121,11 +121,11 @@ namespace Trackboard
 					var tab = datacontex.GetTable<User>();
 					tab.InsertOnSubmit(user);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -135,21 +135,21 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public static bool DeleteUser(User user)
+		public static void DeleteUser(User user)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<User>();
-					var tuser = tab.FirstOrDefault(u => u.UID == user.UID);
+					var tuser = tab.FirstOrDefault(u => u.ID == user.ID);
 					tab.DeleteOnSubmit(tuser);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -159,14 +159,14 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public static bool UpdateUser(User user)
+		public static void UpdateUser(User user)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<User>();
-					var tuser = tab.FirstOrDefault(u => u.UID == user.UID);
+					var tuser = tab.FirstOrDefault(u => u.ID == user.ID);
 					foreach (var p in typeof(User).GetProperties())
 					{
 						//确保属性可写
@@ -174,11 +174,11 @@ namespace Trackboard
 							p.SetValue(tuser, typeof(User).GetProperty(p.Name).GetValue(user, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -190,7 +190,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="course"></param>
 		/// <returns></returns>
-		public static bool AddCourse(Course course)
+		public static void AddCourse(Course course)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -199,11 +199,11 @@ namespace Trackboard
 					var tab = datacontex.GetTable<Course>();
 					tab.InsertOnSubmit(course);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -213,21 +213,21 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="course"></param>
 		/// <returns></returns>
-		public static bool DeleteCourse(Course course)
+		public static void DeleteCourse(Course course)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Course>();
-					var tcourse = tab.FirstOrDefault(c => c.CoID == course.CoID);
+					var tcourse = tab.FirstOrDefault(c => c.ID == course.ID);
 					tab.DeleteOnSubmit(tcourse);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -237,14 +237,14 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="course"></param>
 		/// <returns></returns>
-		public static bool UpdateCourse(Course course)
+		public static void UpdateCourse(Course course)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Course>();
-					var tcourse = tab.FirstOrDefault(c => c.CoID == course.CoID);
+					var tcourse = tab.FirstOrDefault(c => c.ID == course.ID);
 					foreach (var p in typeof(Course).GetProperties())
 					{
 						//确保属性可写
@@ -252,11 +252,11 @@ namespace Trackboard
 							p.SetValue(tcourse, typeof(Course).GetProperty(p.Name).GetValue(course, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -268,7 +268,7 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="grade"></param>
 		/// <returns></returns>
-		public static bool AddGrade(Grade grade)
+		public static void AddGrade(Grade grade)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -277,11 +277,11 @@ namespace Trackboard
 					var tab = datacontex.GetTable<Grade>();
 					tab.InsertOnSubmit(grade);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -291,21 +291,21 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="grade"></param>
 		/// <returns></returns>
-		public static bool DeleteGrade(Grade grade)
+		public static void DeleteGrade(Grade grade)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Grade>();
-					var tgrade = tab.FirstOrDefault(g => g.CoID == grade.CoID && g.SID == grade.SID);
+					var tgrade = tab.FirstOrDefault(g => g.ID == grade.ID);
 					tab.DeleteOnSubmit(tgrade);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -315,14 +315,14 @@ namespace Trackboard
 		/// </summary>
 		/// <param name="grade"></param>
 		/// <returns></returns>
-		public static bool UpdateGrade(Grade grade)
+		public static void UpdateGrade(Grade grade)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Grade>();
-					var tcourse = tab.FirstOrDefault(g => g.CoID == grade.CoID && g.SID == grade.SID);
+					var tcourse = tab.FirstOrDefault(g => g.ID == grade.ID);
 					foreach (var p in typeof(Grade).GetProperties())
 					{
 						//确保属性可写
@@ -330,11 +330,11 @@ namespace Trackboard
 							p.SetValue(tcourse, typeof(Grade).GetProperty(p.Name).GetValue(grade, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -345,8 +345,7 @@ namespace Trackboard
 		/// 增加学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public static bool AddStudent(Student student)
+		public static void AddStudent(Student student)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -355,11 +354,10 @@ namespace Trackboard
 					var tab = datacontex.GetTable<Student>();
 					tab.InsertOnSubmit(student);
 					datacontex.SubmitChanges();
-					return true;
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -368,22 +366,21 @@ namespace Trackboard
 		/// 删除学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public static bool DeleteStudent(Student student)
+		public static void DeleteStudent(Student student)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Student>();
-					var tstudent = tab.FirstOrDefault(s => s.SID == student.SID);
+					var tstudent = tab.FirstOrDefault(s => s.ID == student.ID);
 					tab.DeleteOnSubmit(tstudent);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -392,15 +389,14 @@ namespace Trackboard
 		/// 修改学生
 		/// </summary>
 		/// <param name="student"></param>
-		/// <returns></returns>
-		public static bool UpdateStudent(Student student)
+		public static void UpdateStudent(Student student)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Student>();
-					var tstudent = tab.FirstOrDefault(s => s.SID == student.SID);
+					var tstudent = tab.FirstOrDefault(s => s.ID == student.ID);
 					foreach (var p in typeof(Student).GetProperties())
 					{
 						//确保属性可写
@@ -408,11 +404,11 @@ namespace Trackboard
 							p.SetValue(tstudent, typeof(Student).GetProperty(p.Name).GetValue(student, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
+			
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -423,8 +419,7 @@ namespace Trackboard
 		/// 增加教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public static bool AddTeacher(Teacher teacher)
+		public static void AddTeacher(Teacher teacher)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -433,11 +428,11 @@ namespace Trackboard
 					var tab = datacontex.GetTable<Teacher>();
 					tab.InsertOnSubmit(teacher);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -446,22 +441,21 @@ namespace Trackboard
 		/// 删除教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public static bool DeleteTeacher(Teacher teacher)
+		public static void DeleteTeacher(Teacher teacher)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Teacher>();
-					var tteacher = tab.FirstOrDefault(t => t.TID == teacher.TID);
+					var tteacher = tab.FirstOrDefault(t => t.ID == teacher.ID);
 					tab.DeleteOnSubmit(tteacher);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -470,15 +464,14 @@ namespace Trackboard
 		/// 修改教师
 		/// </summary>
 		/// <param name="teacher"></param>
-		/// <returns></returns>
-		public static bool UpdateTeacher(Teacher teacher)
+		public static void UpdateTeacher(Teacher teacher)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Teacher>();
-					var tteacher = tab.FirstOrDefault(t => t.TID == teacher.TID);
+					var tteacher = tab.FirstOrDefault(t => t.ID == teacher.ID);
 					foreach (var p in typeof(Teacher).GetProperties())
 					{
 						//确保属性可写
@@ -486,11 +479,11 @@ namespace Trackboard
 							p.SetValue(tteacher, typeof(Teacher).GetProperty(p.Name).GetValue(teacher, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -501,8 +494,7 @@ namespace Trackboard
 		/// 增加工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public static bool AddJob(Job job)
+		public static void AddJob(Job job)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
@@ -511,11 +503,11 @@ namespace Trackboard
 					var tab = datacontex.GetTable<Job>();
 					tab.InsertOnSubmit(job);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -524,22 +516,21 @@ namespace Trackboard
 		/// 删除工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public static bool DeleteJob(Job job)
+		public static void DeleteJob(Job job)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Job>();
-					var tjob = tab.FirstOrDefault(j => j.SID == job.SID);
+					var tjob = tab.FirstOrDefault(j => j.ID == job.ID);
 					tab.DeleteOnSubmit(tjob);
 					datacontex.SubmitChanges();
-					return true;
+					
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}
@@ -548,15 +539,14 @@ namespace Trackboard
 		/// 修改工作
 		/// </summary>
 		/// <param name="job"></param>
-		/// <returns></returns>
-		public static bool UpdateJob(Job job)
+		public static void UpdateJob(Job job)
 		{
 			using (var datacontex = new DataContext(ConnStr))
 			{
 				try
 				{
 					var tab = datacontex.GetTable<Job>();
-					var tjob = tab.FirstOrDefault(j => j.SID == job.SID);
+					var tjob = tab.FirstOrDefault(j => j.ID == job.ID);
 					foreach (var p in typeof(Job).GetProperties())
 					{
 						//确保属性可写
@@ -564,11 +554,10 @@ namespace Trackboard
 							p.SetValue(tjob, typeof(Job).GetProperty(p.Name).GetValue(job, null), null);
 					}
 					datacontex.SubmitChanges();
-					return true;
 				}
-				catch (Exception ex)
+				catch
 				{
-					return false;
+					throw;
 				}
 			}
 		}

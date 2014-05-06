@@ -1,7 +1,9 @@
 ﻿CREATE TABLE [dbo].[Course] (
+    [ID]     INT           IDENTITY (1, 1) NOT NULL,
     [CoID]   VARCHAR (10)  NOT NULL,
     [CoName] NVARCHAR (12) NOT NULL,
     [TID]    VARCHAR (10)  NOT NULL,
-    PRIMARY KEY CLUSTERED ([CoID] ASC)
+    PRIMARY KEY CLUSTERED ([ID] ASC),
+    UNIQUE NONCLUSTERED ([CoID] ASC)
 );
 
